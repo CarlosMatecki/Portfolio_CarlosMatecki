@@ -16,12 +16,12 @@ export const flagshipProjects = [
       "Blending support for transparent materials."
     ],
     screenshots: [
-      "Screenshot 2024-09-07 233901.png",
-      "Screenshot 2024-09-19 000914.png"
+      "img_rt_skull",
+      "img_rt_kitchen"
     ].map((fileName, index) => ({
       id: index,
       fileName,
-      src: `/images/${encodeURIComponent(fileName)}`
+      src: `src/assets/images/${fileName}.avif`
     }))
   },
   {
@@ -41,7 +41,15 @@ export const flagshipProjects = [
       "Cluster renderer with GPU occlusion culling for point lights and meshes.",
       "2D renderer featuring a paint canvas and Radiance Cascades implementation.",
       "Debug renderer to visualize meshes and diagnostics."
-    ]
+    ],
+    screenshots: [
+      "img_rc_normals",
+      "img_rc_plain"
+    ].map((fileName, index) => ({
+      id: index,
+      fileName,
+      src: `src/assets/images/${fileName}.avif`
+    }))
   },
   {
     title: "Unity Neural Network Visualization Tool",
@@ -52,6 +60,14 @@ export const flagshipProjects = [
       "Interactive manipulation of nodes with real-time updates.",
       "Modular design that integrates easily with Unity projects or external ML frameworks.",
       "Includes a color prediction example to demonstrate core workflows."
-    ]
+    ],
+    screenshots: [
+      "img_unity_neural_net",
+    ].map((fileName, index) => ({
+      id: index,
+      fileName,
+      src: `src/assets/images/${fileName}.avif`
+    }))
+
   }
 ];

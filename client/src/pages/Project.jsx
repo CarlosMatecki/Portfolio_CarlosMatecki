@@ -3,13 +3,13 @@ import Reveal from "../components/Reveal";
 import { flagshipProjects } from "../data/projects";
 
 const toolScreenshots = [
-  "Screenshot 2024-09-19 171644.png",
-  "Screenshot 2024-09-19 174100.png",
-  "Screenshot 2024-09-19 173226.png"
+  "img_rc_plain.avif",
+  "img_rc_plain.avif",
+  "img_rc_plain.avif"
 ].map((fileName, index) => ({
   id: index,
   fileName,
-  src: `/images/${encodeURIComponent(fileName)}`
+  src: `src/assets/images/${encodeURIComponent(fileName)}`
 }));
 
 const games = [
@@ -150,7 +150,7 @@ export default function Project() {
             Engine 5.
           </p>
           <Reveal as="div" className="hero-actions" delay={160} direction="up">
-            <a href="/resume" className="hero-download" target="_blank" rel="noopener noreferrer">
+            <a href="/resume" className="hero-download" target="src/assets/documents/Cv Carlos Miguel Matecki-Savino.pdf" rel="noopener noreferrer">
               Download Resume
             </a>
             <span className="hero-name">CARLOS MIGUEL MATECKI-SAVINO</span>
