@@ -1,6 +1,6 @@
+
 import Layout from "../components/layout"
 import { useState } from "react"
-import Reveal from "../components/Reveal"
 
 export default function Contact(){
     const [formData, setFormData] = useState({
@@ -39,14 +39,14 @@ export default function Contact(){
         <>
             <Layout />
             <main className="contact-container">
-                <Reveal as="section" className="contact-hero" direction="up">
+                <section className="contact-hero">
                     <h1>Get In Touch</h1>
                     <p>I'd love to hear about your project and discuss how we can work together</p>
-                </Reveal>
+                </section>
 
                 <section className="contact-content">
-                    <Reveal as="div" className="contact-info" direction="up">
-                        <Reveal as="div" className="contact-card" direction="up" delay={120}>
+                    <div className="contact-info">
+                        <div className="contact-card">
                             <h2>Let's Connect</h2>
                             <p>
                                 Whether you have a graphics project in mind, want to collaborate on rendering techniques, or just want to discuss computer graphics,
@@ -54,59 +54,46 @@ export default function Contact(){
                             </p>
 
                             <div className="contact-methods">
-                                <Reveal as="div" className="contact-method" delay={0} direction="up">
+                                <div className="contact-method">
                                     <div className="contact-icon">📧</div>
                                     <div className="contact-details">
                                         <h3>Email</h3>
-                                        <a href="mailto:carlos.matecki@example.com">carlos.matecki@example.com</a>
+                                        <a href="mailto:cmateckisavino@gmail.com">cmateckisavino@gmail.com</a>
                                     </div>
-                                </Reveal>
+                                </div>
 
-                                <Reveal as="div" className="contact-method" delay={140} direction="up">
+                                <div className="contact-method">
                                     <div className="contact-icon">📱</div>
                                     <div className="contact-details">
                                         <h3>Phone</h3>
-                                        <a href="tel:+1234567890">+1 (234) 567-890</a>
+                                        <a href="tel:+1234567890">+1 (416) 722-1007</a>
                                     </div>
-                                </Reveal>
+                                </div>
 
-                                <Reveal as="div" className="contact-method" delay={280} direction="up">
+                                <div className="contact-method">
                                     <div className="contact-icon">📍</div>
                                     <div className="contact-details">
                                         <h3>Location</h3>
                                         <span>Toronto, Canada</span>
                                     </div>
-                                </Reveal>
+                                </div>
                             </div>
 
-                            <Reveal as="div" className="social-media" delay={320} direction="up">
+                            <div className="social-media">
                                 <h3>Find Me Online</h3>
                                 <div className="social-links">
-                                    {[
-                                        { label: "GitHub", href: "https://github.com/carcodee" },
-                                        { label: "LinkedIn", href: "https://linkedin.com" },
-                                        { label: "Twitter", href: "https://twitter.com" },
-                                        { label: "Dev.to", href: "https://dev.to" },
-                                    ].map((social, index) => (
-                                        <Reveal
-                                            as="a"
-                                            className="social-link"
-                                            delay={index * 100}
-                                            direction="up"
-                                            href={social.href}
-                                            key={social.label}
-                                            rel="noopener noreferrer"
-                                            target="_blank"
-                                        >
-                                            {social.label}
-                                        </Reveal>
-                                    ))}
+                                    <a href="https://github.com/carcodee" target="_blank" rel="noopener noreferrer" className="social-link">
+                                        GitHub
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/carlosmatecki/" target="_blank" rel="noopener noreferrer" className="social-link">
+                                        LinkedIn
+                                    </a>
                                 </div>
-                            </Reveal>
-                        </Reveal>
-                    </Reveal>
+                            </div>
+                        </div>
+                    </div>
 
-                    <Reveal as="div" className="contact-form-section" delay={200} direction="up">
+                    <div className="contact-form-section">
                         <form className="contact-form" onSubmit={handleSubmit}>
                             <h2>Send me a message</h2>
 
@@ -176,11 +163,11 @@ export default function Contact(){
                                 </div>
                             )}
                         </form>
-                    </Reveal>
+                    </div>
                 </section>
 
-                <Reveal as="section" className="availability-section" direction="up" delay={220}>
-                    <Reveal as="div" className="availability-card" delay={120} direction="up">
+                <section className="availability-section">
+                    <div className="availability-card">
                         <h2>Current Availability</h2>
                         <div className="availability-status">
                             <span className="status-indicator available"></span>
@@ -204,8 +191,8 @@ export default function Contact(){
                                 <span>EST (UTC-5)</span>
                             </div>
                         </div>
-                    </Reveal>
-                </Reveal>
+                    </div>
+                </section>
             </main>
         </>
     )
