@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 const defaultOptions = {
-  threshold: 0.18,
-  rootMargin: '0px 0px -12% 0px',
+  threshold: 0.08,
+  rootMargin: '0px 0px -5% 0px',
   once: true,
 }
 

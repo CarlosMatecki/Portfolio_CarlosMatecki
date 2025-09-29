@@ -105,7 +105,7 @@ button {
   transform: translate3d(0, 28px, 0);
   filter: blur(6px);
   transition-property: opacity, transform, filter;
-  transition-duration: 600ms;
+  transition-duration: 400ms;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }

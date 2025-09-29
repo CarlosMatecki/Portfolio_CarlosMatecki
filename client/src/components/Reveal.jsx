@@ -14,7 +14,7 @@ export default function Reveal({
   children,
   className = '',
   delay = 0,
-  duration = 600,
+  duration = 400,
   direction = 'up',
   triggerOnce = true,
   style,
