@@ -21,7 +21,7 @@ export const flagshipProjects = [
     ].map((fileName, index) => ({
       id: index,
       fileName,
-      src: `src/assets/images/${fileName}.avif`
+      src: `assets/images/${fileName}.avif`
     }))
   },
   {
@@ -48,7 +48,7 @@ export const flagshipProjects = [
     ].map((fileName, index) => ({
       id: index,
       fileName,
-      src: `src/assets/images/${fileName}.avif`
+      src: `assets/images/${fileName}.avif`
     }))
   },
   {
@@ -66,7 +66,7 @@ export const flagshipProjects = [
     ].map((fileName, index) => ({
       id: index,
       fileName,
-      src: `src/assets/images/${fileName}.avif`
+      src: `assets/images/${fileName}.avif`
     }))
 
   }

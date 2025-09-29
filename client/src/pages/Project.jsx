@@ -9,7 +9,7 @@ const toolScreenshots = [
 ].map((fileName, index) => ({
   id: index,
   fileName,
-  src: `src/assets/images/${encodeURIComponent(fileName)}`
+  src: `assets/images/${encodeURIComponent(fileName)}`
 }));
 
 const games = [
