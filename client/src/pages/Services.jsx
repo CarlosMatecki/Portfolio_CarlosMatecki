@@ -1,95 +1,81 @@
-
 import Layout from "../components/layout"
+import Reveal from "../components/Reveal"
 
 export default function Services(){
+    const serviceOfferings = [
+        {
+            icon: "🖥️",
+            title: "Real-Time Rendering",
+            description: "Designing rendering architectures tailored for interactive experiences and visual fidelity",
+            tech: ["OpenGL", "WebGPU", "Three.js", "C++"],
+        },
+        {
+            icon: "✨",
+            title: "Shader Authoring",
+            description: "Crafting custom shaders to achieve cinematic lighting, stylized effects, and material realism",
+            tech: ["GLSL", "HLSL", "ShaderToy", "WebGL"],
+        },
+        {
+            icon: "📈",
+            title: "Visualization Systems",
+            description: "Turning complex datasets into intuitive, performant 3D and 2D visual narratives",
+            tech: ["D3", "React Three Fiber", "Unity", "Blender"],
+        },
+        {
+            icon: "⚡",
+            title: "Performance Optimization",
+            description: "Profiling GPU workloads and optimizing pipelines for smooth, reliable frame rates",
+            tech: ["Nsight", "RenderDoc", "WebGL Insights", "Metal"],
+        },
+        {
+            icon: "🛠️",
+            title: "Graphics Tooling",
+            description: "Building custom tools that streamline art pipelines and technical workflows",
+            tech: ["Electron", "Python", "Qt", "Node.js"],
+        },
+        {
+            icon: "🌐",
+            title: "Interactive Experiences",
+            description: "Delivering immersive web graphics, XR prototypes, and real-time storytelling applications",
+            tech: ["WebXR", "Three.js", "A-Frame", "Unity XR"],
+        },
+    ]
+
     return (
         <>
             <Layout />
             <section className="services-container">
-                <div className="services-hero">
-                    <h1>Services & Skills</h1>
-                    <p>Transforming ideas into digital reality through modern web technologies</p>
-                </div>
+                <Reveal as="div" className="services-hero" direction="up">
+                    <h1>Graphics Programming Services</h1>
+                    <p>Building real-time visuals, immersive simulations, and polished rendering pipelines</p>
+                </Reveal>
 
                 <div className="services-grid">
-                    <div className="service-card">
-                        <div className="service-icon">💻</div>
-                        <h3>Frontend Development</h3>
-                        <p>Creating responsive, interactive user interfaces with modern frameworks</p>
-                        <div className="tech-stack">
-                            <span className="tech-tag">React</span>
-                            <span className="tech-tag">JavaScript</span>
-                            <span className="tech-tag">CSS3</span>
-                            <span className="tech-tag">HTML5</span>
-                        </div>
-                    </div>
-
-                    <div className="service-card">
-                        <div className="service-icon">⚙️</div>
-                        <h3>Backend Development</h3>
-                        <p>Building robust server-side applications and APIs</p>
-                        <div className="tech-stack">
-                            <span className="tech-tag">Node.js</span>
-                            <span className="tech-tag">Express</span>
-                            <span className="tech-tag">MongoDB</span>
-                            <span className="tech-tag">REST APIs</span>
-                        </div>
-                    </div>
-
-                    <div className="service-card">
-                        <div className="service-icon">📱</div>
-                        <h3>Responsive Design</h3>
-                        <p>Mobile-first approach ensuring perfect experience across all devices</p>
-                        <div className="tech-stack">
-                            <span className="tech-tag">CSS Grid</span>
-                            <span className="tech-tag">Flexbox</span>
-                            <span className="tech-tag">Media Queries</span>
-                            <span className="tech-tag">Bootstrap</span>
-                        </div>
-                    </div>
-
-                    <div className="service-card">
-                        <div className="service-icon">🚀</div>
-                        <h3>Performance Optimization</h3>
-                        <p>Optimizing applications for speed, SEO, and user experience</p>
-                        <div className="tech-stack">
-                            <span className="tech-tag">Vite</span>
-                            <span className="tech-tag">Webpack</span>
-                            <span className="tech-tag">Lighthouse</span>
-                            <span className="tech-tag">PWA</span>
-                        </div>
-                    </div>
-
-                    <div className="service-card">
-                        <div className="service-icon">🗃️</div>
-                        <h3>Database Management</h3>
-                        <p>Designing and managing efficient database solutions</p>
-                        <div className="tech-stack">
-                            <span className="tech-tag">MongoDB</span>
-                            <span className="tech-tag">PostgreSQL</span>
-                            <span className="tech-tag">Firebase</span>
-                            <span className="tech-tag">Prisma</span>
-                        </div>
-                    </div>
-
-                    <div className="service-card">
-                        <div className="service-icon">🔧</div>
-                        <h3>Development Tools</h3>
-                        <p>Utilizing modern development tools and best practices</p>
-                        <div className="tech-stack">
-                            <span className="tech-tag">Git</span>
-                            <span className="tech-tag">VS Code</span>
-                            <span className="tech-tag">Docker</span>
-                            <span className="tech-tag">ESLint</span>
-                        </div>
-                    </div>
+                    {serviceOfferings.map((service, index) => (
+                        <Reveal
+                            as="div"
+                            className="service-card"
+                            delay={index * 120}
+                            direction="up"
+                            key={service.title}
+                        >
+                            <div className="service-icon">{service.icon}</div>
+                            <h3>{service.title}</h3>
+                            <p>{service.description}</p>
+                            <div className="tech-stack">
+                                {service.tech.map((tech) => (
+                                    <span className="tech-tag" key={tech}>{tech}</span>
+                                ))}
+                            </div>
+                        </Reveal>
+                    ))}
                 </div>
 
-                <div className="cta-section">
-                    <h2>Ready to work together?</h2>
-                    <p>Let's discuss your project and bring your vision to life</p>
-                    <a href="/contact" className="cta-button">Get In Touch</a>
-                </div>
+                <Reveal as="div" className="cta-section" direction="up" delay={260}>
+                    <h2>Ready to build your next visual experience?</h2>
+                    <p>Let's collaborate on rendering systems, shaders, and tools that bring your ideas to life</p>
+                    <a href="/contact" className="cta-button">Start a Project</a>
+                </Reveal>
             </section>
         </>
     )
