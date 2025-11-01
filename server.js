@@ -36,7 +36,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5001;
-const MONGODB_URI = process.env.MONGODB_URI || '';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://carlos:12345@cluster93853.xcteok2.mongodb.net/';
 
 async function start() {
   try {
