@@ -1,10 +1,13 @@
 
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
 
 export default function Layout(){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
+    const { user, signOut } = useAuth();
 
     const isActive = (path) => location.pathname === path;
 
@@ -46,13 +49,56 @@ export default function Layout(){
                             Projects
                         </Link>
                         <Link
+                            to="/education"
+                            className={`nav-link ${isActive('/education') ? 'active' : ''}`}
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Education
+                        </Link>
+                        <Link
                             to="/contact"
                             className={`nav-link ${isActive('/contact') ? 'active' : ''}`}
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Contact
                         </Link>
+                        {user?.role === 'admin' && (
+                            <Link
+                                to="/dashboard"
+                                className={`nav-link ${isActive('/dashboard') ? 'active' : ''}`}
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Dashboard
+                            </Link>
+                        )}
                     </nav>
+
+                    <div className="auth-actions">
+                        {user ? (
+                            <>
+                                <span className="auth-user">{user.name} ({user.role})</span>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline"
+                                    onClick={async () => {
+                                        await signOut();
+                                        navigate('/');
+                                    }}
+                                >
+                                    Sign out
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/signin" className="btn btn-outline" onClick={() => setIsMenuOpen(false)}>
+                                    Sign in
+                                </Link>
+                                <Link to="/signup" className="btn btn-primary" onClick={() => setIsMenuOpen(false)}>
+                                    Sign up
+                                </Link>
+                            </>
+                        )}
+                    </div>
 
                     <button
                         className="menu-toggle"

@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import Reveal from "../components/Reveal";
 import { flagshipProjects } from "../data/projects";
+import { projectApi } from "../services/api";
 
 const toolScreenshots = [
   "img_rc_plain.avif",
@@ -137,6 +139,24 @@ const socials = [
 ];
 
 export default function Project() {
+  const [projects, setProjects] = useState([]);
+  const [projectError, setProjectError] = useState('');
+
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const data = await projectApi.list();
+        setProjects(data);
+      } catch (err) {
+        setProjectError(err.message);
+      }
+    }
+
+    fetchProjects();
+  }, []);
+
+  const renderedProjects = projects.length ? projects : flagshipProjects;
+
   return (
     <>
       <Layout />
@@ -194,23 +214,32 @@ export default function Project() {
           <header className="section-header">
             <h2>Flagship Projects</h2>
           </header>
+          {projectError && <p className="form-error">{projectError}</p>}
           <div className="flagship-grid">
-            {flagshipProjects.map((project, index) => (
+            {renderedProjects.map((project, index) => (
               <Reveal
                 as="article"
                 className="flagship-card"
                 delay={index * 160}
                 direction="up"
-                key={project.title}
+                key={project._id || project.title}
               >
                 <div className="flagship-content">
                   <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <ul>
-                    {project.features.map((feature) => (
-                      <li key={feature}>{feature}</li>
-                    ))}
-                  </ul>
+                  <p>{project.description || project.summary}</p>
+                  {project.features ? (
+                    <ul>
+                      {project.features.map((feature) => (
+                        <li key={feature}>{feature}</li>
+                      ))}
+                    </ul>
+                  ) : project.techStack?.length ? (
+                    <ul>
+                      {project.techStack.map((stack) => (
+                        <li key={stack}>{stack}</li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </div>
                 {project.screenshots && project.screenshots.length > 0 && (
                   <div className="flagship-media">
@@ -224,6 +253,11 @@ export default function Project() {
                       />
                     ))}
                   </div>
+                )}
+                {project.repoUrl && (
+                  <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="project-link">
+                    View repository
+                  </a>
                 )}
               </Reveal>
             ))}

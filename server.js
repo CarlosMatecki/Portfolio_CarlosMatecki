@@ -1,22 +1,26 @@
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 
 dotenv.config({ path: path.join(__dirname, '.env') });
 
 const { connectDB } = require('./server/config/db');
+const { seedAdmin } = require('./server/utils/seedAdmin');
 
 const contactRoutes = require('./server/routes/contacts');
 const projectRoutes = require('./server/routes/projects');
 const educationRoutes = require('./server/routes/educations');
 const userRoutes = require('./server/routes/users');
+const authRoutes = require('./server/routes/auth');
 
 const { errorHandler, notFound } = require('./server/middleware/errorHandler');
 
 const app = express();
 
 app.use(cors({ origin: ['http://localhost:5173'], credentials: true }));
+app.use(cookieParser());
 app.use(express.json());
 
 app.get('/', (_req, res) => {
@@ -31,6 +35,7 @@ app.use('/api/contacts', contactRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/educations', educationRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
@@ -42,6 +47,7 @@ async function start() {
   try {
     if (MONGODB_URI) {
       await connectDB(MONGODB_URI);
+      await seedAdmin();
     } else {
       console.warn('MONGODB_URI not set. Server will start without DB connection.');
     }
@@ -55,4 +61,3 @@ async function start() {
 }
 
 start();
-

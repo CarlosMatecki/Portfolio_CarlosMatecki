@@ -5,9 +5,15 @@ function isValidId(id) {
   return mongoose.Types.ObjectId.isValid(id);
 }
 
+function sanitize(user) {
+  const data = user.toObject();
+  delete data.password;
+  return data;
+}
+
 exports.getAll = async (req, res, next) => {
   try {
-    const items = await User.find();
+    const items = await User.find().select('-password');
     res.json(items);
   } catch (err) {
     next(err);
@@ -18,7 +24,7 @@ exports.getById = async (req, res, next) => {
   try {
     const { id } = req.params;
     if (!isValidId(id)) return res.status(400).json({ message: 'Invalid id' });
-    const item = await User.findById(id);
+    const item = await User.findById(id).select('-password');
     if (!item) return res.status(404).json({ message: 'Not found' });
     res.json(item);
   } catch (err) {
@@ -29,7 +35,7 @@ exports.getById = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
     const item = await User.create(req.body);
-    res.status(201).json(item);
+    res.status(201).json(sanitize(item));
   } catch (err) {
     next(err);
   }
@@ -39,7 +45,12 @@ exports.updateById = async (req, res, next) => {
   try {
     const { id } = req.params;
     if (!isValidId(id)) return res.status(400).json({ message: 'Invalid id' });
-    const item = await User.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
+    const payload = { ...req.body };
+    delete payload.password;
+    const item = await User.findByIdAndUpdate(id, payload, {
+      new: true,
+      runValidators: true,
+    }).select('-password');
     if (!item) return res.status(404).json({ message: 'Not found' });
     res.json(item);
   } catch (err) {
@@ -67,4 +78,3 @@ exports.removeAll = async (req, res, next) => {
     next(err);
   }
 };
-

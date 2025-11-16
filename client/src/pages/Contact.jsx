@@ -1,6 +1,7 @@
 
 import Layout from "../components/layout"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { contactApi } from "../services/api"
 
 export default function Contact(){
     const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ export default function Contact(){
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState('');
+    const [contacts, setContacts] = useState([]);
+    const [contactError, setContactError] = useState('');
 
     const handleChange = (e) => {
         setFormData({
@@ -20,19 +23,32 @@ export default function Contact(){
         });
     };
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        async function loadContacts() {
+            try {
+                const data = await contactApi.list();
+                setContacts(data.slice(0, 3));
+            } catch (err) {
+                setContactError(err.message);
+            }
+        }
+
+        loadContacts();
+    }, []);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-
-        setTimeout(() => {
-            setIsSubmitting(false);
+        setSubmitStatus('');
+        try {
+            await contactApi.createPublic({ ...formData });
             setSubmitStatus('success');
             setFormData({ name: '', email: '', subject: '', message: '' });
-
-            setTimeout(() => {
-                setSubmitStatus('');
-            }, 3000);
-        }, 1000);
+        } catch (err) {
+            setSubmitStatus(err.message || 'error');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -89,6 +105,20 @@ export default function Contact(){
                                         LinkedIn
                                     </a>
                                 </div>
+                            </div>
+
+                            <div className="contact-updates">
+                                <h3>Latest contact submissions</h3>
+                                {contactError && <p className="form-error">{contactError}</p>}
+                                <ul>
+                                    {contacts.map((contact) => (
+                                        <li key={contact._id}>
+                                            <strong>{contact.name}</strong>
+                                            <p>{contact.subject}</p>
+                                        </li>
+                                    ))}
+                                    {!contacts.length && !contactError && <li>No messages yet — be the first to reach out!</li>}
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -160,6 +190,11 @@ export default function Contact(){
                             {submitStatus === 'success' && (
                                 <div className="success-message">
                                     ✅ Message sent successfully! I'll get back to you soon.
+                                </div>
+                            )}
+                            {submitStatus && submitStatus !== 'success' && (
+                                <div className="form-error">
+                                    We could not send your message: {submitStatus}
                                 </div>
                             )}
                         </form>

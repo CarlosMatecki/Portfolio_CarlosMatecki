@@ -35,6 +35,17 @@ exports.create = async (req, res, next) => {
   }
 };
 
+exports.createPublic = async (req, res, next) => {
+  try {
+    const payload = { ...req.body };
+    delete payload.status;
+    const item = await Contact.create(payload);
+    res.status(201).json(item);
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.updateById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -67,4 +78,3 @@ exports.removeAll = async (req, res, next) => {
     next(err);
   }
 };
-
